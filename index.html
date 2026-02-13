@@ -5,21 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>💙 Feliz San Valentín 💙</title>
 
-  <!-- ✅ Preview bonito (WhatsApp / FB / iMessage)
-       Importante: para WhatsApp a veces funciona mejor con URL absoluta.
-       En GitHub Pages, después de publicar, si no muestra preview, cambia og:image por:
-       https://TUUSUARIO.github.io/TUREPO/preview.jpg
-  -->
+  <!-- ✅ Preview bonito (WhatsApp) -->
   <meta property="og:title" content="💙 Feliz San Valentín, Rebe 💙" />
-<meta property="og:description" content="Una tarjetita hecha con amor. Ábrela 💙✨" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/" />
-<meta property="og:image" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/preview.jpg" />
-<meta property="og:image:type" content="image/jpeg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
-
+  <meta property="og:description" content="Una tarjeta hecha con amor. Ábrela 💙✨" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/" />
+  <meta property="og:image" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/preview.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <style>
     :root{
@@ -34,6 +29,7 @@
     }
     *{ box-sizing:border-box; }
     html,body{ height:100%; margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+
     body{
       color: var(--txt);
       background:
@@ -41,7 +37,7 @@
         radial-gradient(700px 500px at 25% 85%, rgba(255,77,166,.12), transparent 60%),
         radial-gradient(1200px 800px at 50% 35%, rgba(143,208,255,.10), transparent 60%),
         linear-gradient(180deg, var(--bg2), var(--bg1));
-      overflow:hidden;
+      overflow:auto; /* ✅ importante para celular */
     }
 
     .glow{
@@ -64,12 +60,13 @@
     /* ====== MAIN CARD (3 columnas) ====== */
     .wrap{
       position:relative;
-      height:100%;
+      min-height:100%;
       display:grid;
       place-items:center;
       padding:18px;
       z-index:1;
     }
+
     .card{
       width:min(1200px, 98vw);
       display:grid;
@@ -82,6 +79,7 @@
       backdrop-filter: blur(12px);
       box-shadow: 0 16px 60px rgba(0,0,0,.35);
       height: min(560px, 86vh);
+
       opacity: 0;
       transform: translateY(8px) scale(.99);
       pointer-events:none;
@@ -91,13 +89,6 @@
       opacity:1;
       transform: translateY(0) scale(1);
       pointer-events:auto;
-    }
-    @media (max-width: 980px){
-      body{ overflow:auto; }
-      .card{
-        grid-template-columns: 1fr;
-        height:auto;
-      }
     }
 
     .panel{
@@ -110,6 +101,7 @@
       display:flex;
       flex-direction:column;
     }
+
     h1{
       margin: 6px 0 10px;
       font-size: clamp(20px, 2.8vw, 34px);
@@ -196,13 +188,8 @@
       overflow:hidden;
     }
 
-    /* Base del sobre */
-    .env-base{
-      position:absolute; inset:0;
-      background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-    }
+    .env-base{ position:absolute; inset:0; background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); }
 
-    /* Triángulos del sobre */
     .env-left, .env-right, .env-bottom{
       position:absolute; width:0; height:0; opacity:.95;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
@@ -226,7 +213,6 @@
       border-top: 170px solid rgba(255,255,255,.08);
     }
 
-    /* Tapa del sobre (flap) */
     .env-flap{
       position:absolute;
       left:0; top:0;
@@ -247,7 +233,6 @@
       top:-1px;
     }
 
-    /* Carta interna */
     .letter{
       position:absolute;
       left:18px; right:18px;
@@ -266,20 +251,9 @@
       text-align:center;
     }
 
-    .letter h2{
-      margin:0 0 8px;
-      font-size: 18px;
-      color: rgba(255,255,255,.92);
-      letter-spacing:.2px;
-    }
-    .letter p{
-      margin:0;
-      font-size: 13px;
-      color: rgba(143,208,255,.92);
-      line-height:1.4;
-    }
+    .letter h2{ margin:0 0 8px; font-size: 18px; color: rgba(255,255,255,.92); letter-spacing:.2px; }
+    .letter p{ margin:0; font-size: 13px; color: rgba(143,208,255,.92); line-height:1.4; }
 
-    /* Botón OPEN */
     .openBtn{
       margin-top:14px;
       cursor:pointer;
@@ -297,11 +271,9 @@
     .openBtn:hover{ background: rgba(74,163,255,.26); }
     .openBtn:active{ transform: scale(.98); }
 
-    /* Animación al abrir */
     .envelope.open .env-flap{ transform: rotateX(180deg); }
     .envelope.open .letter{ transform: translateY(-26px); opacity: 1; }
 
-    /* Texto “OPEN” al centro */
     .centerTag{
       position:absolute;
       left:50%; top:52%;
@@ -325,6 +297,26 @@
       text-align:center;
       color: rgba(255,255,255,.70);
       font-size: 12px;
+    }
+
+    /* ✅ FIX MOBILE: en celular apilar + permitir ver TE AMO */
+    @media (max-width: 980px){
+      .wrap{
+        height:auto;
+        min-height:100%;
+        place-items: start center;
+        padding: 14px;
+      }
+      .card{
+        grid-template-columns: 1fr;
+        height:auto;
+      }
+      .rightPanel{
+        min-height: 460px; /* ✅ asegura que se vea el corazón y TE AMO */
+      }
+      .photo{
+        width: min(380px, 96%);
+      }
     }
   </style>
 </head>
@@ -388,7 +380,6 @@
   </div>
 
   <script>
-    // ====== TEXTO ======
     const CUSTOM = {
       title: "💙 Feliz San Valentín 💙",
       message:
@@ -402,12 +393,10 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       signature: "Firmado: Ing. Paulo Rubio 🤓  —  el amor de tu vida 😍"
     };
 
-    const titleEl = document.getElementById("title");
-    const sigEl = document.getElementById("signature");
-    titleEl.textContent = CUSTOM.title;
-    sigEl.textContent = CUSTOM.signature;
+    document.getElementById("title").textContent = CUSTOM.title;
+    document.getElementById("signature").textContent = CUSTOM.signature;
 
-    // ====== TYPING (se inicia al abrir) ======
+    // Typing (inicia al abrir)
     const typingBox = document.getElementById("typingBox");
     let ti = 0;
     function startTyping(){
@@ -420,7 +409,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       })();
     }
 
-    // ====== CANVAS ======
+    // Canvas
     const canvas = document.getElementById("scene");
     const ctx = canvas.getContext("2d");
 
@@ -596,7 +585,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       requestAnimationFrame(loop);
     }
 
-    // ====== OPEN ENVELOPE FLOW ======
+    // OPEN FLOW
     const intro = document.getElementById("intro");
     const envelope = document.getElementById("envelope");
     const openBtn = document.getElementById("openBtn");
@@ -606,16 +595,13 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       envelope.classList.add("open");
       openBtn.disabled = true;
 
-      // espera a que "abra" el sobre
       setTimeout(()=>{
         intro.classList.add("hide");
 
-        // muestra card
         setTimeout(()=>{
           mainCard.classList.add("show");
           resize();
 
-          // iniciar animaciones
           running = true;
           startTyping();
           requestAnimationFrame(loop);
@@ -628,5 +614,3 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
   </script>
 </body>
 </html>
-
-
