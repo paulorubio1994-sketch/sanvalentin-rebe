@@ -6,12 +6,10 @@
 
   <title>💙 Feliz San Valentín, Rebe 💙</title>
 
-  <!-- ✅ Open Graph (WhatsApp) -->
-  <meta property="og:locale" content="es_ES" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Tarjeta San Valentín" />
+  <!-- Open Graph para WhatsApp -->
   <meta property="og:title" content="💙 Feliz San Valentín, Rebe 💙" />
   <meta property="og:description" content="Una tarjeta hecha con amor. Ábrela 💙✨" />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/" />
   <meta property="og:image" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/preview.jpg" />
   <meta property="og:image:secure_url" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/preview.jpg" />
@@ -19,11 +17,9 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- ✅ Twitter (muchas apps lo leen también) -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="💙 Feliz San Valentín, Rebe 💙" />
-  <meta name="twitter:description" content="Una tarjeta hecha con amor. Ábrela 💙✨" />
-  <meta name="twitter:image" content="https://paulorubio1994-sketch.github.io/sanvalentin-rebe/preview.jpg" />
+</head>
 
   <style>
     :root{
@@ -33,9 +29,12 @@
       --sky2:#8fd0ff;
       --pink:#ff4da6;
       --txt:#ffffff;
+      --glass: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
     }
     *{ box-sizing:border-box; }
     html,body{ height:100%; margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+
     body{
       color: var(--txt);
       background:
@@ -43,11 +42,11 @@
         radial-gradient(700px 500px at 25% 85%, rgba(255,77,166,.12), transparent 60%),
         radial-gradient(1200px 800px at 50% 35%, rgba(143,208,255,.10), transparent 60%),
         linear-gradient(180deg, var(--bg2), var(--bg1));
-      overflow:auto;
+      overflow:auto; /* ✅ importante para celular */
     }
 
     .glow{
-      position:fixed; inset:-20%;
+      position:absolute; inset:-20%;
       background:
         radial-gradient(14px 14px at 20% 35%, rgba(74,163,255,.28), transparent 60%),
         radial-gradient(18px 18px at 70% 20%, rgba(143,208,255,.18), transparent 60%),
@@ -63,6 +62,7 @@
       50%{ transform: translate3d(-2%,1%,0) scale(1.02); }
     }
 
+    /* ====== MAIN CARD (3 columnas) ====== */
     .wrap{
       position:relative;
       min-height:100%;
@@ -131,6 +131,7 @@
       font-weight: 800;
     }
 
+    /* Centro: foto */
     .photoWrap{ flex:1 1 auto; display:grid; place-items:center; padding: 6px; }
     .photo{
       width: min(340px, 92%);
@@ -157,6 +158,7 @@
       letter-spacing:.2px;
     }
 
+    /* Derecha: canvas */
     .rightPanel{ padding:0; background: radial-gradient(700px 500px at 50% 25%, rgba(74,163,255,.20), rgba(0,0,0,0)); }
     canvas{ position:absolute; inset:0; width:100%; height:100%; }
 
@@ -192,6 +194,7 @@
     }
 
     .env-base{ position:absolute; inset:0; background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); }
+
     .env-left, .env-right, .env-bottom{
       position:absolute; width:0; height:0; opacity:.95;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
@@ -252,6 +255,7 @@
       padding:16px;
       text-align:center;
     }
+
     .letter h2{ margin:0 0 8px; font-size: 18px; color: rgba(255,255,255,.92); letter-spacing:.2px; }
     .letter p{ margin:0; font-size: 13px; color: rgba(143,208,255,.92); line-height:1.4; }
 
@@ -300,12 +304,24 @@
       font-size: 12px;
     }
 
-    /* Mobile stack */
+    /* ✅ FIX MOBILE: en celular apilar + permitir ver TE AMO */
     @media (max-width: 980px){
-      .wrap{ place-items:start center; padding:14px; }
-      .card{ grid-template-columns: 1fr; height:auto; }
-      .rightPanel{ min-height: 460px; }
-      .photo{ width:min(380px, 96%); }
+      .wrap{
+        height:auto;
+        min-height:100%;
+        place-items: start center;
+        padding: 14px;
+      }
+      .card{
+        grid-template-columns: 1fr;
+        height:auto;
+      }
+      .rightPanel{
+        min-height: 460px; /* ✅ asegura que se vea el corazón y TE AMO */
+      }
+      .photo{
+        width: min(380px, 96%);
+      }
     }
   </style>
 </head>
@@ -313,6 +329,7 @@
 <body>
   <div class="glow"></div>
 
+  <!-- ✉️ INTRO SOBRE -->
   <div class="intro" id="intro">
     <div>
       <div class="envelope" id="envelope">
@@ -336,14 +353,17 @@
     </div>
   </div>
 
+  <!-- MAIN -->
   <div class="wrap">
     <div class="card" id="mainCard">
+      <!-- Izquierda -->
       <div class="panel">
         <h1 id="title">💙 Feliz San Valentín 💙</h1>
         <div class="typing" id="typingBox"></div>
         <div class="firm" id="signature"></div>
       </div>
 
+      <!-- Centro -->
       <div class="panel">
         <div class="photoWrap">
           <div class="photo">
@@ -357,6 +377,7 @@
         <div class="centerCaption">💙 Paulo & Rebe 💙</div>
       </div>
 
+      <!-- Derecha -->
       <div class="panel rightPanel">
         <canvas id="scene"></canvas>
       </div>
@@ -380,6 +401,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
     document.getElementById("title").textContent = CUSTOM.title;
     document.getElementById("signature").textContent = CUSTOM.signature;
 
+    // Typing (inicia al abrir)
     const typingBox = document.getElementById("typingBox");
     let ti = 0;
     function startTyping(){
@@ -392,6 +414,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       })();
     }
 
+    // Canvas
     const canvas = document.getElementById("scene");
     const ctx = canvas.getContext("2d");
 
@@ -407,6 +430,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
     const rand = (a,b)=> a + Math.random()*(b-a);
     const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
+    // Flores
     const flowers = [];
     const flowerRate = 26;
 
@@ -445,6 +469,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       ctx.restore();
     }
 
+    // Corazón
     function heartPath(t){
       const x = 16*Math.pow(Math.sin(t),3);
       const y = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
@@ -565,6 +590,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
       requestAnimationFrame(loop);
     }
 
+    // OPEN FLOW
     const intro = document.getElementById("intro");
     const envelope = document.getElementById("envelope");
     const openBtn = document.getElementById("openBtn");
@@ -580,6 +606,7 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
         setTimeout(()=>{
           mainCard.classList.add("show");
           resize();
+
           running = true;
           startTyping();
           requestAnimationFrame(loop);
@@ -587,7 +614,9 @@ GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
 
       }, 900);
     }
+
     openBtn.addEventListener("click", openCard);
   </script>
 </body>
 </html>
+
