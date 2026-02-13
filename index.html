@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>💙 Feliz San Valentín 💙</title>
+
+  <!-- ✅ Preview bonito (WhatsApp / FB / iMessage)
+       Importante: para WhatsApp a veces funciona mejor con URL absoluta.
+       En GitHub Pages, después de publicar, si no muestra preview, cambia og:image por:
+       https://TUUSUARIO.github.io/TUREPO/preview.jpg
+  -->
+  <meta property="og:title" content="💙 Feliz San Valentín, Rebe 💙" />
+  <meta property="og:description" content="Una tarjeta hecha con amor. Ábrela 💙✨" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="preview.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root{
+      --bg1:#06162b;
+      --bg2:#0b2b57;
+      --sky:#4aa3ff;
+      --sky2:#8fd0ff;
+      --pink:#ff4da6;
+      --txt:#ffffff;
+      --glass: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    body{
+      color: var(--txt);
+      background:
+        radial-gradient(900px 600px at 75% 15%, rgba(74,163,255,.25), transparent 60%),
+        radial-gradient(700px 500px at 25% 85%, rgba(255,77,166,.12), transparent 60%),
+        radial-gradient(1200px 800px at 50% 35%, rgba(143,208,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+      overflow:hidden;
+    }
+
+    .glow{
+      position:absolute; inset:-20%;
+      background:
+        radial-gradient(14px 14px at 20% 35%, rgba(74,163,255,.28), transparent 60%),
+        radial-gradient(18px 18px at 70% 20%, rgba(143,208,255,.18), transparent 60%),
+        radial-gradient(12px 12px at 40% 70%, rgba(255,77,166,.12), transparent 60%),
+        radial-gradient(16px 16px at 85% 80%, rgba(74,163,255,.16), transparent 60%);
+      filter: blur(1px);
+      animation: float 10s ease-in-out infinite;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes float{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(-2%,1%,0) scale(1.02); }
+    }
+
+    /* ====== MAIN CARD (3 columnas) ====== */
+    .wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:18px;
+      z-index:1;
+    }
+    .card{
+      width:min(1200px, 98vw);
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 22px;
+      padding: 14px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 60px rgba(0,0,0,.35);
+      height: min(560px, 86vh);
+      opacity: 0;
+      transform: translateY(8px) scale(.99);
+      pointer-events:none;
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .card.show{
+      opacity:1;
+      transform: translateY(0) scale(1);
+      pointer-events:auto;
+    }
+    @media (max-width: 980px){
+      body{ overflow:auto; }
+      .card{
+        grid-template-columns: 1fr;
+        height:auto;
+      }
+    }
+
+    .panel{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+      position:relative;
+      overflow:hidden;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+    }
+    h1{
+      margin: 6px 0 10px;
+      font-size: clamp(20px, 2.8vw, 34px);
+      line-height:1.1;
+    }
+    .typing{
+      white-space: pre-wrap;
+      font-size: clamp(15px, 1.35vw, 17px);
+      line-height: 1.6;
+      color: rgba(255,255,255,.92);
+      border-left: 2px solid rgba(143,208,255,.9);
+      padding-left: 12px;
+      margin: 6px 0 10px;
+      flex: 1 1 auto;
+      min-height: 260px;
+    }
+    .firm{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255,255,255,.18);
+      color: rgba(143,208,255,.95);
+      font-weight: 800;
+    }
+
+    /* Centro: foto */
+    .photoWrap{ flex:1 1 auto; display:grid; place-items:center; padding: 6px; }
+    .photo{
+      width: min(340px, 92%);
+      aspect-ratio: 1 / 1;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.28);
+      position:relative;
+    }
+    .photo img{ width:100%; height:100%; object-fit: cover; display:block; transform: scale(1.02); }
+    .fallback{
+      position:absolute; inset:0;
+      display:grid; place-items:center;
+      text-align:center; padding:12px;
+      font-size:12px; color: rgba(255,255,255,.75);
+    }
+    .centerCaption{
+      margin-top:10px;
+      text-align:center;
+      color: rgba(143,208,255,.95);
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+
+    /* Derecha: canvas */
+    .rightPanel{ padding:0; background: radial-gradient(700px 500px at 50% 25%, rgba(74,163,255,.20), rgba(0,0,0,0)); }
+    canvas{ position:absolute; inset:0; width:100%; height:100%; }
+
+    /* ====== ENVELOPE INTRO ====== */
+    .intro{
+      position:fixed;
+      inset:0;
+      display:grid;
+      place-items:center;
+      z-index:5;
+      background:
+        radial-gradient(900px 600px at 60% 30%, rgba(74,163,255,.18), transparent 60%),
+        radial-gradient(700px 500px at 35% 80%, rgba(255,77,166,.10), transparent 60%),
+        rgba(0,0,0,.15);
+      backdrop-filter: blur(10px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .intro.hide{
+      opacity:0;
+      transform: translateY(10px);
+      pointer-events:none;
+    }
+
+    .envelope{
+      width:min(460px, 92vw);
+      height:min(320px, 55vh);
+      position:relative;
+      border-radius: 22px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 70px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+
+    /* Base del sobre */
+    .env-base{
+      position:absolute; inset:0;
+      background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    }
+
+    /* Triángulos del sobre */
+    .env-left, .env-right, .env-bottom{
+      position:absolute; width:0; height:0; opacity:.95;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+    .env-left{
+      left:0; top:0;
+      border-top: 160px solid transparent;
+      border-bottom: 160px solid transparent;
+      border-right: 230px solid rgba(74,163,255,.22);
+    }
+    .env-right{
+      right:0; top:0;
+      border-top: 160px solid transparent;
+      border-bottom: 160px solid transparent;
+      border-left: 230px solid rgba(255,77,166,.14);
+    }
+    .env-bottom{
+      left:0; bottom:0;
+      border-left: 230px solid transparent;
+      border-right: 230px solid transparent;
+      border-top: 170px solid rgba(255,255,255,.08);
+    }
+
+    /* Tapa del sobre (flap) */
+    .env-flap{
+      position:absolute;
+      left:0; top:0;
+      width:100%; height:100%;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform .9s cubic-bezier(.2,.8,.2,1);
+      pointer-events:none;
+    }
+    .env-flap:before{
+      content:"";
+      position:absolute;
+      left:0; top:0;
+      width:0; height:0;
+      border-left: 230px solid transparent;
+      border-right: 230px solid transparent;
+      border-bottom: 170px solid rgba(143,208,255,.18);
+      top:-1px;
+    }
+
+    /* Carta interna */
+    .letter{
+      position:absolute;
+      left:18px; right:18px;
+      bottom:18px;
+      height: 62%;
+      border-radius: 16px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+      transform: translateY(18px);
+      transition: transform .9s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
+      opacity: .92;
+      display:grid;
+      place-items:center;
+      padding:16px;
+      text-align:center;
+    }
+
+    .letter h2{
+      margin:0 0 8px;
+      font-size: 18px;
+      color: rgba(255,255,255,.92);
+      letter-spacing:.2px;
+    }
+    .letter p{
+      margin:0;
+      font-size: 13px;
+      color: rgba(143,208,255,.92);
+      line-height:1.4;
+    }
+
+    /* Botón OPEN */
+    .openBtn{
+      margin-top:14px;
+      cursor:pointer;
+      border:0;
+      padding:12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing:.4px;
+      color: rgba(255,255,255,.95);
+      background: rgba(74,163,255,.22);
+      border: 1px solid rgba(74,163,255,.35);
+      box-shadow: 0 10px 22px rgba(74,163,255,.18);
+      transition: transform .12s ease, background .2s ease;
+    }
+    .openBtn:hover{ background: rgba(74,163,255,.26); }
+    .openBtn:active{ transform: scale(.98); }
+
+    /* Animación al abrir */
+    .envelope.open .env-flap{ transform: rotateX(180deg); }
+    .envelope.open .letter{ transform: translateY(-26px); opacity: 1; }
+
+    /* Texto “OPEN” al centro */
+    .centerTag{
+      position:absolute;
+      left:50%; top:52%;
+      transform: translate(-50%,-50%);
+      width: 110px; height: 44px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      display:grid;
+      place-items:center;
+      color: rgba(255,255,255,.9);
+      font-weight: 900;
+      letter-spacing:.6px;
+      text-transform: uppercase;
+      pointer-events:none;
+    }
+    .envelope.open .centerTag{ opacity:0; transition: opacity .3s ease; }
+
+    .introSmall{
+      margin-top:12px;
+      text-align:center;
+      color: rgba(255,255,255,.70);
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow"></div>
+
+  <!-- ✉️ INTRO SOBRE -->
+  <div class="intro" id="intro">
+    <div>
+      <div class="envelope" id="envelope">
+        <div class="env-base"></div>
+        <div class="env-left"></div>
+        <div class="env-right"></div>
+        <div class="env-bottom"></div>
+        <div class="env-flap"></div>
+
+        <div class="centerTag">OPEN</div>
+
+        <div class="letter">
+          <div>
+            <h2>Para ti 💙</h2>
+            <p>Presiona para abrir tu tarjeta ✨</p>
+            <button class="openBtn" id="openBtn">OPEN</button>
+          </div>
+        </div>
+      </div>
+      <div class="introSmall">Hecho con amor 💙</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="wrap">
+    <div class="card" id="mainCard">
+      <!-- Izquierda -->
+      <div class="panel">
+        <h1 id="title">💙 Feliz San Valentín 💙</h1>
+        <div class="typing" id="typingBox"></div>
+        <div class="firm" id="signature"></div>
+      </div>
+
+      <!-- Centro -->
+      <div class="panel">
+        <div class="photoWrap">
+          <div class="photo">
+            <img src="pyr.jpeg" alt="pyr.jpeg"
+              onerror="this.style.display='none'; document.getElementById('fallback').style.display='grid';">
+            <div class="fallback" id="fallback" style="display:none;">
+              Pega tu foto en la carpeta<br><br><b>pyr.jpeg</b>
+            </div>
+          </div>
+        </div>
+        <div class="centerCaption">💙 Paulo & Rebe 💙</div>
+      </div>
+
+      <!-- Derecha -->
+      <div class="panel rightPanel">
+        <canvas id="scene"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== TEXTO ======
+    const CUSTOM = {
+      title: "💙 Feliz San Valentín 💙",
+      message:
+`Hola Whitools 😊 hermosa, cuando estés leyendo ese mensajito, recuérdalo que es con mucho amor 🥰
+gracias por todo los momentos que pasamos, buenos y malos, lo importante es saber que los compartimos juntos.
+Con este mensaje cool así como Tuii, quiero expresar todo el amor que tengo para ti.
+Te amo mucho mi Rebe hermosa 🤩.
+
+❤️FELIZ SAN VALENTÍN ❤️
+GRACIAS POR SER MI AMIGA Y AMOR 🥰`,
+      signature: "Firmado: Ing. Paulo Rubio 🤓  —  el amor de tu vida 😍"
+    };
+
+    const titleEl = document.getElementById("title");
+    const sigEl = document.getElementById("signature");
+    titleEl.textContent = CUSTOM.title;
+    sigEl.textContent = CUSTOM.signature;
+
+    // ====== TYPING (se inicia al abrir) ======
+    const typingBox = document.getElementById("typingBox");
+    let ti = 0;
+    function startTyping(){
+      const text = CUSTOM.message;
+      const speed = 16;
+      (function step(){
+        typingBox.textContent = text.slice(0, ti);
+        ti++;
+        if(ti <= text.length) setTimeout(step, speed);
+      })();
+    }
+
+    // ====== CANVAS ======
+    const canvas = document.getElementById("scene");
+    const ctx = canvas.getContext("2d");
+
+    function resize(){
+      const r = canvas.getBoundingClientRect();
+      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+      canvas.width = Math.floor(r.width * dpr);
+      canvas.height = Math.floor(r.height * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    window.addEventListener("resize", resize);
+
+    const rand = (a,b)=> a + Math.random()*(b-a);
+    const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+    // Flores
+    const flowers = [];
+    const flowerRate = 26;
+
+    function makeFlower(){
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: rand(0, rect.width),
+        y: -20,
+        s: rand(10, 18),
+        vy: rand(26, 58),
+        vx: rand(-12, 12),
+        rot: rand(0, Math.PI*2),
+        vr: rand(-1.2, 1.2),
+        hue: Math.random() < 0.60 ? rand(195, 210) : rand(320, 345),
+        sat: rand(80, 95),
+        lum: rand(62, 76),
+        life: rand(6, 10)
+      };
+    }
+
+    function drawFlower(f){
+      ctx.save();
+      ctx.translate(f.x, f.y);
+      ctx.rotate(f.rot);
+      for(let k=0;k<5;k++){
+        ctx.rotate((Math.PI*2)/5);
+        ctx.beginPath();
+        ctx.ellipse(0, f.s*0.35, f.s*0.38, f.s*0.7, 0, 0, Math.PI*2);
+        ctx.fillStyle = `hsla(${f.hue}, ${f.sat}%, ${f.lum}%, .85)`;
+        ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(0,0, f.s*0.28, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(255, 235, 160, .9)";
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Corazón
+    function heartPath(t){
+      const x = 16*Math.pow(Math.sin(t),3);
+      const y = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
+      return {x, y};
+    }
+
+    const heartDots = [];
+    (function buildHeartDots(){
+      const steps = 560;
+      for(let j=0;j<steps;j++){
+        const t = (j/steps) * Math.PI*2;
+        heartDots.push(heartPath(t));
+      }
+    })();
+
+    let reveal = 0;
+    const revealSpeed = 0.26;
+
+    function drawMiniHeart(x,y, size, a, isBlue=false){
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.scale(size, size);
+      ctx.beginPath();
+      ctx.moveTo(0, -0.25);
+      ctx.bezierCurveTo(0.55, -0.8, 1.15, -0.05, 0, 1.0);
+      ctx.bezierCurveTo(-1.15, -0.05, -0.55, -0.8, 0, -0.25);
+      ctx.closePath();
+      ctx.fillStyle = isBlue ? `rgba(74,163,255,${a})` : `rgba(255,77,166,${a})`;
+      ctx.shadowColor = isBlue ? "rgba(74,163,255,.65)" : "rgba(255,77,166,.55)";
+      ctx.shadowBlur = 12;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawHeart(){
+      const rect = canvas.getBoundingClientRect();
+      const W = rect.width, H = rect.height;
+      const cx = W*0.52, cy = H*0.54;
+
+      const scale = Math.min(W, H) * 0.018;
+      const count = Math.floor(heartDots.length * reveal);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, Math.min(W,H)*0.36, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(74,163,255,.06)";
+      ctx.fill();
+      ctx.restore();
+
+      for(let k=0;k<count;k++){
+        const p = heartDots[k];
+        const x = cx + p.x*scale;
+        const y = cy - p.y*scale;
+        const s = rand(2.2, 3.4) * 0.03;
+        const a = clamp(0.18 + (k/count)*0.85, 0.18, 1);
+        const isBlue = (k % 3 !== 0);
+        drawMiniHeart(x,y, s, a, isBlue);
+      }
+
+      ctx.save();
+      ctx.font = "800 14px system-ui";
+      ctx.fillStyle = "rgba(255,255,255,.78)";
+      ctx.textAlign = "center";
+      ctx.fillText("💙 Rebe 💙", cx, cy + Math.min(W,H)*0.29);
+      ctx.restore();
+
+      if (reveal >= 1) {
+        const pulse = 1 + Math.sin(performance.now()/220) * 0.03;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(pulse, pulse);
+
+        ctx.font = "900 42px system-ui";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(255,255,255,.92)";
+        ctx.shadowColor = "rgba(74,163,255,.80)";
+        ctx.shadowBlur = 22;
+        ctx.fillText("TE AMO 💙", 0, 10);
+
+        ctx.font = "800 14px system-ui";
+        ctx.fillStyle = "rgba(143,208,255,.95)";
+        ctx.shadowBlur = 0;
+        ctx.fillText("Feliz San Valentín ✨", 0, 34);
+
+        ctx.restore();
+      }
+    }
+
+    let running = false;
+    let last = performance.now();
+    function loop(now){
+      if(!running) return;
+
+      const dt = Math.min(0.033, (now-last)/1000);
+      last = now;
+
+      const rect = canvas.getBoundingClientRect();
+      const W = rect.width, H = rect.height;
+      ctx.clearRect(0,0,W,H);
+
+      const target = Math.floor((W/flowerRate));
+      if(flowers.length < target){
+        for(let m=0;m<2;m++) flowers.push(makeFlower());
+      }
+      for(let m=flowers.length-1;m>=0;m--){
+        const f = flowers[m];
+        f.life -= dt;
+        f.y += f.vy*dt;
+        f.x += f.vx*dt + Math.sin((now/650)+m)*6*dt;
+        f.rot += f.vr*dt;
+        drawFlower(f);
+        if(f.y > H+30 || f.life <= 0) flowers.splice(m,1);
+      }
+
+      reveal = clamp(reveal + revealSpeed*dt, 0, 1);
+      drawHeart();
+
+      requestAnimationFrame(loop);
+    }
+
+    // ====== OPEN ENVELOPE FLOW ======
+    const intro = document.getElementById("intro");
+    const envelope = document.getElementById("envelope");
+    const openBtn = document.getElementById("openBtn");
+    const mainCard = document.getElementById("mainCard");
+
+    function openCard(){
+      envelope.classList.add("open");
+      openBtn.disabled = true;
+
+      // espera a que "abra" el sobre
+      setTimeout(()=>{
+        intro.classList.add("hide");
+
+        // muestra card
+        setTimeout(()=>{
+          mainCard.classList.add("show");
+          resize();
+
+          // iniciar animaciones
+          running = true;
+          startTyping();
+          requestAnimationFrame(loop);
+        }, 400);
+
+      }, 900);
+    }
+
+    openBtn.addEventListener("click", openCard);
+  </script>
+</body>
+</html>
